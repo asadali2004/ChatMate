@@ -23,7 +23,7 @@ Ensure you have the following installed before setting up the project:
 1. **Clone the Repository:**
 
    ```bash
-   git clone https://github.com/ShreyGrg03/ChatMate
+   git clone https://github.com/asadali2004/ChatMate.git
    ```
 
 2. **Navigate to the Project Directory:**
