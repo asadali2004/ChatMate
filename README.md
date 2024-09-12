@@ -1,104 +1,90 @@
 # Chat Mate AI
 
-## Overview
+## **Overview**
 
-This project is a chat bot leveraging OpenAI's GPT-4.0 model, implemented
-using React and TypeScript for the front end, Express for the backend, and MongoDB for data
-storage and OpenAI API . The application provides users with an interactive interface to engage
-in natural language conversations with the GPT-4.0  model.
+Chat Mate AI is a chatbot application that utilizes OpenAI's GPT-4.0 model. The project is developed using a full-stack approach: React and TypeScript for the frontend, Express for the backend, and MongoDB for data storage. The app provides an intuitive interface for users to engage in dynamic, human-like conversations powered by the OpenAI API.
 
-## Features
+## **Features**
 
-- **Conversational Interface:** Users can have dynamic and natural language
-  conversations by inputting prompts or queries.
+- **Conversational Interface:** Users can input queries and receive natural language responses from the GPT-4.0 model.
+- **Backend Integration:** The Express backend communicates seamlessly with OpenAI's API to handle requests and responses efficiently.
+- **Data Persistence:** MongoDB is used to store user data such as prompts and responses from the AI.
 
-- **Backend Integration:** The Express backend manages communication with the
-  OpenAI API, handling requests and responses seamlessly.
+## **Prerequisites**
 
-- **Data Persistence:** MongoDB is employed for storing user data, including
-  prompts and model responses.
-
-## Prerequisites
-
-Before running the application, ensure you have the following installed:
+Ensure you have the following installed before setting up the project:
 
 - Node.js
 - npm (Node Package Manager)
 - MongoDB
 
-## Setup
+## **Setup**
 
-1.  Clone the repository:
+1. **Clone the Repository:**
 
-    ```
-    git clone https://github.com/ShreyGrg03/ChatMate
-    ```
+   ```bash
+   git clone https://github.com/ShreyGrg03/ChatMate
+   ```
 
-2.  Navigate to the project directory:
+2. **Navigate to the Project Directory:**
 
-    
-    cd Chat Mate Ai
-    
+   ```bash
+   cd Chat-Mate-AI
+   ```
 
-3.  Install dependencies for both the client and server:
+3. **Install Dependencies:**
 
-    ```
-    # Install frontend dependencies
-    cd frontend
-    npm install
+   Install the necessary dependencies for both the client and server:
 
-    # Install backend dependencies
-    cd backend
-    npm install
-    ```
+   ```bash
+   # Install frontend dependencies
+   cd frontend
+   npm install
 
-4.  Configure environment variables:
+   # Install backend dependencies
+   cd backend
+   npm install
+   ```
 
-    Create the `.env` file in the `backend` directory and add the following variables:
+4. **Configure Environment Variables:**
 
-        
-        OPENAI_API_KEYSET=your_openai_api_key
-        MONGODB_URL=your_mongodb_uri
-        
+   In the `backend` directory, create a `.env` file and include the following:
 
-5.  Start the application:
+   ```plaintext
+   OPENAI_API_KEY=your_openai_api_key
+   MONGODB_URL=your_mongodb_uri
+   ```
 
-    ```
-    # Start the client (in the frontend directory)
-    cd frontend
-    npm run dev
+   Be sure to replace `your_openai_api_key` and `your_mongodb_uri` with your actual credentials.
 
-    # Start the server (in the backed directory)
-    cd backend
-    npm run dev
-    ```
+5. **Start the Application:**
 
-## Notes
+   Run the client and server:
 
-- Make sure to replace `your_openai_api_key` and `your_mongodb_url` with your
-  actual OpenAI API key and MongoDB connection URI in the `.env` file.
+   ```bash
+   # Start the frontend (in the frontend directory)
+   npm run dev
 
-## Website Screenshots
+   # Start the backend (in the backend directory)
+   npm run dev
+   ```
 
-### Home Page
+## **Notes**
 
-![Screenshot 2024-07-18 001258](https://github.com/user-attachments/assets/e0ec50d0-1321-4922-b960-dd767ad95aa7)
+- Ensure that valid OpenAI API keys and MongoDB URIs are provided in the `.env` file.
+- Once both servers are running, the app will be live and ready for testing.
 
-### Login Page
+## **Website Screenshots**
 
-![image](https://github.com/user-attachments/assets/e0e67748-aacb-425e-9300-726e217acc9b)
+### **Home Page**
+![Home Page](https://github.com/user-attachments/assets/e0ec50d0-1321-4922-b960-dd767ad95aa7)
 
+### **Login Page**
+![Login Page](https://github.com/user-attachments/assets/e0e67748-aacb-425e-9300-726e217acc9b)
 
+### **Sign-Up Page**
+![Sign-Up Page](https://github.com/user-attachments/assets/2a2f1d38-64d3-4715-bdf2-704610da1b9f)
 
-### SignUp Page
-
-![image](https://github.com/user-attachments/assets/2a2f1d38-64d3-4715-bdf2-704610da1b9f)
-
-
-
-### Chat Page
-
-![image](https://github.com/user-attachments/assets/fa95ba0f-3820-460a-9b44-9c5ca247108b)
-
-
+### **Chat Page**
+![Chat Page](https://github.com/user-attachments/assets/fa95ba0f-3820-460a-9b44-9c5ca247108b)
 
