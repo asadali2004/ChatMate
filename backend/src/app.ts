@@ -14,6 +14,7 @@ const app = express();
 app.use(cors({
   origin: [
     'https://chat-mate-vert.vercel.app', 
+    'https://chatmate-ivory.vercel.app',
     'http://localhost:5173',
     process.env.FRONTEND_URL
   ],
