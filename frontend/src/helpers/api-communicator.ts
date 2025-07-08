@@ -1,5 +1,10 @@
 import axios from "axios";
 
+// Configure axios base URL for production
+axios.defaults.baseURL = import.meta.env.PROD 
+  ? "https://your-backend-url.railway.app" // Update this after deploying backend
+  : "http://localhost:5000";
+
 const getTokenHeader = () => {
   const token = localStorage.getItem("token");
 

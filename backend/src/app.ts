@@ -12,7 +12,11 @@ const app = express();
 // Middlewares
 // ────────────────────────────────────────────
 app.use(cors({
-  origin: ['https://nextgen-chatbot-app.netlify.app', 'http://localhost:5173'],
+  origin: [
+    'https://chat-mate-vert.vercel.app', 
+    'http://localhost:5173',
+    process.env.FRONTEND_URL
+  ],
   credentials: true
 }));
 
