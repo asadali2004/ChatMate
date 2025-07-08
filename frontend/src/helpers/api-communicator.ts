@@ -2,8 +2,8 @@ import axios from "axios";
 
 // Configure axios base URL for production
 axios.defaults.baseURL = import.meta.env.PROD 
-  ? "https://chatmate-production.up.railway.app" // Your Railway backend URL
-  : "http://localhost:5000";
+  ? "https://chatmate-production.up.railway.app/api/v1" // Your Railway backend URL with API path
+  : "http://localhost:5000/api/v1";
 
 const getTokenHeader = () => {
   const token = localStorage.getItem("token");

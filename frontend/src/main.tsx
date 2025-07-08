@@ -8,8 +8,10 @@ import { AuthProvider } from './context/AuthContext.tsx';
 import { Toaster } from 'react-hot-toast';
 
 import axios from "axios";
-// axios.defaults.baseURL = "https://nexgenchatbotsk-production.up.railway.app/api/v1";
-axios.defaults.baseURL = "http://localhost:5000/api/v1";
+// Configure axios for production - this will be overridden by api-communicator.ts
+axios.defaults.baseURL = import.meta.env.PROD 
+  ? "https://chatmate-production.up.railway.app/api/v1" 
+  : "http://localhost:5000/api/v1";
 axios.defaults.withCredentials = true;
 
 
