@@ -2,7 +2,7 @@ import axios from "axios";
 
 // Configure axios base URL for production
 axios.defaults.baseURL = import.meta.env.PROD 
-  ? "https://your-backend-url.railway.app" // Update this after deploying backend
+  ? "https://chatmate-production.up.railway.app" // Your Railway backend URL
   : "http://localhost:5000";
 
 const getTokenHeader = () => {
