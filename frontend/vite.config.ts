@@ -8,16 +8,7 @@ export default defineConfig({
   build: {
     outDir: 'dist',
     sourcemap: false,
-    chunkSizeWarningLimit: 1000,
-    rollupOptions: {
-      output: {
-        manualChunks: {
-          vendor: ['react', 'react-dom'],
-          mui: ['@mui/material', '@mui/icons-material'],
-          router: ['react-router-dom'],
-        }
-      }
-    }
+    chunkSizeWarningLimit: 1600, // Just increase the warning limit
   },
   server: {
     port: 5173,
