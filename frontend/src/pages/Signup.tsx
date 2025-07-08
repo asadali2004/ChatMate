@@ -32,8 +32,17 @@ const Signup = () => {
 
   return (
     <Box width={"100%"} height={"100%"} display="flex" flex={1}>
-      <Box padding={8} mt={8} display={{ md: "flex", sm: "none", xs: "none" }}>
-        <img src="airobot.png" alt="Robot" style={{ width: "400px" }} />
+      <Box 
+        padding={8} 
+        mt={8} 
+        display={{ md: "flex", sm: "none", xs: "none" }}
+        sx={{
+          background: 'linear-gradient(135deg, rgba(236, 72, 153, 0.1), rgba(99, 102, 241, 0.1))',
+          borderRadius: 3,
+          m: 2,
+        }}
+      >
+        <img src="airobot.png" alt="ChatMate AI" style={{ width: "400px", filter: "drop-shadow(0 20px 40px rgba(236, 72, 153, 0.3))" }} />
       </Box>
       <Box
         display={"flex"}
@@ -42,16 +51,18 @@ const Signup = () => {
         alignItems={"center"}
         padding={2}
         ml={"auto"}
-        mt={16}
+        mt={8}
       >
         <form
           onSubmit={handleSubmit}
           style={{
             margin: "auto",
-            padding: "30px",
-            boxShadow: "10px 10px 20px #000",
-            borderRadius: "10px",
-            border: "none",
+            padding: "40px",
+            background: "rgba(30, 41, 59, 0.8)",
+            backdropFilter: "blur(10px)",
+            borderRadius: "16px",
+            border: "1px solid rgba(236, 72, 153, 0.2)",
+            boxShadow: "0 20px 40px rgba(0, 0, 0, 0.3)",
           }}
         >
           <Box
@@ -59,36 +70,56 @@ const Signup = () => {
               display: "flex",
               flexDirection: "column",
               justifyContent: "center",
+              alignItems: "center",
             }}
           >
             <Typography
               variant="h4"
               textAlign="center"
-              padding={2}
-              fontWeight={600}
+              padding={3}
+              fontWeight={700}
+              sx={{
+                background: 'linear-gradient(135deg, #ec4899, #6366f1)',
+                backgroundClip: 'text',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+              }}
             >
-              Signup
+              Join ChatMate! 🚀
             </Typography>
-            <CustomizedInput type="text" name="name" label="Name" />
-            <CustomizedInput type="email" name="email" label="Email" />
+            <Typography
+              variant="body1"
+              textAlign="center"
+              mb={3}
+              color="text.secondary"
+            >
+              Create your account and start chatting with AI
+            </Typography>
+            <CustomizedInput type="text" name="name" label="Full Name" />
+            <CustomizedInput type="email" name="email" label="Email Address" />
             <CustomizedInput type="password" name="password" label="Password" />
             <Button
               type="submit"
               sx={{
-                px: 2,
-                py: 1,
-                mt: 2,
-                width: "400px",
+                px: 4,
+                py: 1.5,
+                mt: 3,
+                width: "100%",
+                maxWidth: "400px",
                 borderRadius: 2,
-                bgcolor: "#00fffc",
+                background: "linear-gradient(135deg, #ec4899, #6366f1)",
+                color: "white",
+                fontWeight: 600,
+                fontSize: "1rem",
                 ":hover": {
-                  bgcolor: "white",
-                  color: "black",
+                  transform: "translateY(-2px)",
+                  boxShadow: "0 10px 30px rgba(236, 72, 153, 0.4)",
                 },
+                transition: "all 0.3s ease",
               }}
               endIcon={<IoIosLogIn />}
             >
-              Signup
+              Create Account
             </Button>
           </Box>
         </form>

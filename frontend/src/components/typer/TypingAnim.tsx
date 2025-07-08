@@ -6,19 +6,27 @@ const TypingAnim = () => {
     <TypeAnimation
       sequence={[
         // Same substring at the start will only be typed once, initially
-        "Chat with your personalized AI ChatMate",
+        "Welcome to ChatMate AI ✨",
         1000,
-        "Built With OpenAI API 🧑‍💻",
+        "Built by Asad Ali with ❤️",
         2000,
-        "Experience your own Customized AI ChatBot 💻",
+        "Powered by Groq's Lightning Speed ⚡",
+        1500,
+        "Your Intelligent AI Companion 🤖",
+        2000,
+        "Get Instant AI Responses 🚀",
         1500,
       ]}
       speed={50}
       style={{
-        fontSize: "60px",
-        color: "white",
+        fontSize: "clamp(2rem, 5vw, 3.5rem)",
+        background: 'linear-gradient(135deg, #6366f1, #ec4899)',
+        backgroundClip: 'text',
+        WebkitBackgroundClip: 'text',
+        WebkitTextFillColor: 'transparent',
         display: "inline-block",
-        textShadow: "1px 1px 20px #000",
+        textAlign: "center",
+        fontWeight: 700,
       }}
       repeat={Infinity}
     />

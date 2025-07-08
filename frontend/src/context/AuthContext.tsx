@@ -51,11 +51,19 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     useEffect(() => {
         //fetch if the users cookies are valid then skip the login 
         async function checkStatus() {
-            const data = await checkAuthStatus();
+            try {
+                const data = await checkAuthStatus();
 
-            if (data) {
-                setUser({ email: data.email, name: data.name });
-                setIsLoggedIn(true);
+                if (data) {
+                    setUser({ email: data.email, name: data.name });
+                    setIsLoggedIn(true);
+                }
+            } catch (error) {
+                console.log("Auth check failed:", error);
+                // Clear any invalid tokens
+                localStorage.removeItem('token');
+                setUser(null);
+                setIsLoggedIn(false);
             }
         }
         checkStatus();
@@ -63,21 +71,30 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
 
     const login = async (email: string, password: string) => {
-        const data = await loginUser(email, password);
-        if (data) {
-            localStorage.setItem('token', data.token);
-            setUser({ email: data.email, name: data.name });
-            setIsLoggedIn(true);
+        try {
+            const data = await loginUser(email, password);
+            if (data) {
+                localStorage.setItem('token', data.token);
+                setUser({ email: data.email, name: data.name });
+                setIsLoggedIn(true);
+            }
+        } catch (error) {
+            console.error("Login failed:", error);
+            throw error; // Re-throw to be caught by the component
         }
     };
 
-
     const signup = async (name: string, email: string, password: string) => {
-        const data = await signupUser(name, email, password);
-        if (data) {
-            localStorage.setItem('token', data.token);
-            setUser({ email: data.email, name: data.name });
-            setIsLoggedIn(true);
+        try {
+            const data = await signupUser(name, email, password);
+            if (data) {
+                localStorage.setItem('token', data.token);
+                setUser({ email: data.email, name: data.name });
+                setIsLoggedIn(true);
+            }
+        } catch (error) {
+            console.error("Signup failed:", error);
+            throw error; // Re-throw to be caught by the component
         }
     };
     const logout = async () => {

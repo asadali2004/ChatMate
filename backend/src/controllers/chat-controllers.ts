@@ -1,7 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import User from "../models/User.js";
-import { configureOpenAI } from '../config/openai-config.js';
-import { ChatCompletionRequestMessage, OpenAIApi } from "openai";
+import { configureGroq } from '../config/groq-config.js';
 import { config } from 'dotenv';
 
 
@@ -26,7 +25,7 @@ export const generateChatCompletion = async (
     const chats = user.chats.map(({ role, content }) => ({ 
         role,
         content,
-      })) as ChatCompletionRequestMessage[];
+      })) as any[];
       chats.push({ content: message, role: "user" }); {/* push the chats or send the chat from the user */}
       user.chats.push({ content: message, role: "user" }); {/**So we need to store chats in main user objects */}
       //above all will grab the chats of the user     
@@ -35,21 +34,42 @@ export const generateChatCompletion = async (
 
 
 
-    //Send all chats with new one to openAi API
-    const config = configureOpenAI();
-    const openai = new OpenAIApi(config);
-    // get latest response
-    const chatResponse = await openai.createChatCompletion({
-      model: "gpt-3.5-turbo",
+    //Send all chats with new one to Groq API
+    const groq = configureGroq();
+    
+    console.log("Sending request to Groq with", chats.length, "messages");
+    
+    // get latest response from Groq
+    const chatResponse = await groq.chat.completions.create({
+      model: "llama3-8b-8192", // Fast and free Llama 3 model
       messages: chats,
+      max_tokens: 1000,
+      temperature: 0.7,
     });
-    user.chats.push(chatResponse.data.choices[0].message);
+    
+    console.log("Groq response received");
+    
+    if (chatResponse.choices && chatResponse.choices[0] && chatResponse.choices[0].message) {
+        user.chats.push(chatResponse.choices[0].message);
         await user.save();
         return res.status(200).json({ chats: user.chats });
+    } else {
+        return res.status(500).json({ message: "No response from Groq AI" });
+    }
 
     } catch (error) {
-        console.log(error);
-        return res.status(500).json({ message: "Something went wrong" });
+        console.log("Chat completion error:", error);
+        if (error.response) {
+            console.log("Groq API Error:", error.response.data);
+            return res.status(500).json({ 
+                message: "Groq API Error", 
+                error: error.response.data 
+            });
+        }
+        return res.status(500).json({ 
+            message: "Something went wrong", 
+            error: error.message 
+        });
     }
   
   };

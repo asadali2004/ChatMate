@@ -1,6 +1,5 @@
 import  { useEffect, useLayoutEffect,  useRef, useState } from 'react'
 import { Avatar, Box, Typography, Button, IconButton } from '@mui/material';
-import { red } from '@mui/material/colors';
 import { useAuth } from '../context/AuthContext'
 import ChatItem from '../components/chat/ChatItem';
 import { IoMdSend } from 'react-icons/io';
@@ -32,6 +31,12 @@ const Chat = () => {
      const handleSubmit = async () => {
       //get the latest input messages
       const content = inputRef.current?.value as string;
+      
+      // Check if content is empty or just whitespace
+      if (!content || content.trim() === "") {
+        return;
+      }
+      
     if (inputRef && inputRef.current) {
       inputRef.current.value = "";
     }
@@ -48,6 +53,14 @@ const Chat = () => {
       const chatData = await sendChatRequest(content);
       setChatMessages([...chatData.chats]);
 
+     };
+
+     // Handle Enter key press
+     const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
+       if (event.key === 'Enter') {
+         event.preventDefault(); // Prevent form submission
+         handleSubmit();
+       }
      };
 
      const handleDeleteChats = async () => {
@@ -111,63 +124,78 @@ const Chat = () => {
           display: "flex",
           width: "100%",
           height: "60vh",
-          bgcolor: "rgb(17,29,39)",
-          borderRadius: 5,
+          bgcolor: "background.paper",
+          borderRadius: 3,
           flexDirection: "column",
           mx: 3,
+          border: '1px solid rgba(99, 102, 241, 0.2)',
+          boxShadow: '0 8px 32px rgba(0, 0, 0, 0.3)',
+          backdropFilter: 'blur(10px)',
+          p: 3,
         }}
         >
-          <Avatar 
-            sx={{ 
-              mx: "auto",
-              my: 2,
-              bgcolor: "white",
-              color: "black",
-              fontWeight: 700,
-            }}
-          >
-          { auth?.user?.name[0] }
-          {auth?.user?.name.split(" ")[0][0-1]}
-          </Avatar>
-          <Typography
-            sx={{
-              mx: "auto",
-              fontFamily: "work sans" 
-            }}
-          >
-            You are talking to ChatMate
-
-          </Typography>
-
-          <Typography
-            sx={{
-               mx: "auto", 
-               fontFamily: "work sans", 
-               my: 4, 
-               p: 3 
+          {/* Top section with user info */}
+          <Box sx={{ textAlign: 'center' }}>
+            <Avatar 
+              sx={{ 
+                mx: "auto",
+                mb: 2,
+                bgcolor: "primary.main",
+                color: "white",
+                fontWeight: 700,
+                width: 56,
+                height: 56,
+                fontSize: '1.5rem',
               }}
-          >
-           
-           "I'm here to assist with questions on knowledge, business, advice, education, and more. Feel free to ask!"
-       
-          </Typography>
+            >
+            { auth?.user?.name[0] }
+            </Avatar>
+            <Typography
+              sx={{
+                fontFamily: "Inter",
+                fontWeight: 600,
+                fontSize: '1.1rem',
+                color: 'text.primary',
+                mb: 3,
+              }}
+            >
+              Welcome, {auth?.user?.name.split(" ")[0]}! 👋
+            </Typography>
 
+            <Typography
+              sx={{
+                 fontFamily: "Inter", 
+                 color: 'text.secondary',
+                 lineHeight: 1.6,
+                 textAlign: 'justify',
+                 fontSize: '0.95rem',
+                 mb: 4,
+                }}
+            >
+             
+             I'm ChatMate, your AI assistant created by Asad Ali and powered by Groq! I'm here to help with questions, provide advice, assist with learning, and much more. What would you like to explore today? 🚀
+         
+            </Typography>
+          </Box>
+
+          {/* Clear Chat Button positioned after the description */}
           <Button
             onClick={handleDeleteChats}
             sx={{
-              width: "200px",
-              my: "auto",
+              width: "100%",
               color: "white",
-              fontWeight: "700",
-              borderRadius: 3,
-              mx: "auto",
-              bgcolor: red[300],
+              fontWeight: 600,
+              borderRadius: 2,
+              bgcolor: "error.main",
+              py: 1.5,
               ":hover": {
-                bgcolor: red.A400,
+                bgcolor: "error.dark",
+                transform: 'translateY(-2px)',
               },
+              transition: 'all 0.3s ease',
             }}
           >
-            Clear Prompt
+            🗑️ Clear Chat
           </Button>
 
         </Box>
@@ -183,14 +211,19 @@ const Chat = () => {
       >
         <Typography
           sx={{
-            fontSize: "40px",
-            color: "white",
-            mb: 2,
+            fontSize: "2rem",
+            color: "primary.main",
+            mb: 3,
             mx: "auto",
-            fontWeight: "600",
+            fontWeight: 700,
+            textAlign: "center",
+            background: 'linear-gradient(135deg, #6366f1, #ec4899)',
+            backgroundClip: 'text',
+            WebkitBackgroundClip: 'text',
+            WebkitTextFillColor: 'transparent',
           }}
         >
-          Chat with GPT v4.0
+          Chat with ChatMate AI ✨
         </Typography>
 
         {/* render actual chats over here */}
@@ -202,52 +235,102 @@ const Chat = () => {
             mx: "auto",
             display: "flex",
             flexDirection: "column",
-            overflow: "scroll",
-            overflowX: "hidden",
-            overflowY: "auto",
-            scrollBehavior: "smooth",
+            overflow: "hidden",
+            bgcolor: "background.paper",
+            border: '1px solid rgba(99, 102, 241, 0.2)',
+            boxShadow: '0 8px 32px rgba(0, 0, 0, 0.3)',
+            backdropFilter: 'blur(10px)',
           }}
         >
-          {chatMessages.map((chat, index) => (
-            //@ts-ignore
-            <ChatItem content={chat.content} role={chat.role} key={index} />
-          ))}
+          <Box
+            sx={{
+              flex: 1,
+              overflowY: "auto",
+              p: 2,
+              scrollBehavior: "smooth",
+              '&::-webkit-scrollbar': {
+                width: '6px',
+              },
+              '&::-webkit-scrollbar-track': {
+                background: 'rgba(0,0,0,0.1)',
+                borderRadius: '10px',
+              },
+              '&::-webkit-scrollbar-thumb': {
+                background: 'rgba(99, 102, 241, 0.3)',
+                borderRadius: '10px',
+              },
+              '&::-webkit-scrollbar-thumb:hover': {
+                background: 'rgba(99, 102, 241, 0.5)',
+              },
+            }}
+          >
+            {chatMessages.map((chat, index) => (
+              <ChatItem content={chat.content} role={chat.role} key={index} />
+            ))}
+          </Box>
         </Box>
-        <div style={{ 
+        <Box sx={{ 
           width: "100%",
-         borderRadius:20, 
-         backgroundColor:"rgb(17,27,39)",
-         boxSizing: 'border-box',
-         display: "flex",
-         margin: "auto",
-         }}>
+          borderRadius: 3, 
+          bgcolor: "background.paper",
+          border: '1px solid rgba(99, 102, 241, 0.2)',
+          boxShadow: '0 8px 32px rgba(0, 0, 0, 0.3)',
+          display: "flex",
+          alignItems: "center",
+          margin: "16px auto 0",
+          overflow: "hidden",
+          position: "relative",
+          "&::before": {
+            content: '""',
+            position: "absolute",
+            top: 0,
+            left: 0,
+            right: 0,
+            height: "2px",
+            background: "linear-gradient(90deg, #6366f1, #ec4899)",
+          }
+          }}>
           {/** add Input tag to type  */}
         <input
           ref={inputRef} 
           type="text" 
+          placeholder="Type your message here, Asad... ✨"
+          onKeyPress={handleKeyPress}
           style={{ 
             width: "100%", 
             backgroundColor: "transparent",
-            padding: "30px",
+            padding: "18px 24px",
             border: "none",
             outline: "none",
-            color: "white",
-            fontSize: "20px",
+            color: "#f8fafc",
+            fontSize: "16px",
+            fontFamily: "Inter, sans-serif",
             }}
         />
-        {/**once we click on the input button we need to send the data */}
+        {/**Enhanced send button with better styling */}
         <IconButton 
           onClick={handleSubmit}
           sx={{
-            ml:"auto",
+            m: 1,
             color: "white",
-            mx:1
+            background: "linear-gradient(135deg, #6366f1, #ec4899)",
+            width: 52,
+            height: 52,
+            ":hover": {
+              background: "linear-gradient(135deg, #4f46e5, #db2777)",
+              transform: "scale(1.1)",
+            },
+            ":active": {
+              transform: "scale(0.95)",
+            },
+            transition: "all 0.2s ease",
+            boxShadow: "0 4px 20px rgba(99, 102, 241, 0.3)",
           }}
         >
           <IoMdSend />
         </IconButton>
 
-        </div>
+        </Box>
         
       </Box>
     </Box>

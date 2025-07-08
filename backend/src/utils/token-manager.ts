@@ -40,23 +40,27 @@ export const verifyToken = async (
          let token = req.header("Authorization");
         // const token = req.signedCookies[`${COOKIE_NAME}`];
 
-
         if (!token || token.trim() === "") {
             return res.status(401).json({ message: "Token Not Received" });
-          }
-        //now verify the token by just checking if that token has data is valid then will move on to net middleware
-        //but if the token is nogt valid and we can abort the request and send response
+        }
 
-        return new Promise<void>((resolve, reject) => {
-            return jwt.verify(token, process.env.JWT_SECRET, (err, success) => {
-              if (err) {
-                reject(err.message);
-                return res.status(401).json({ message: "Token Expired" });
-              } else {
-                resolve();
-                res.locals.jwtData = success;
-                return next();
-              }
-            });
-          });
-        };
+        // Remove "Bearer " prefix if present
+        if (token.startsWith("Bearer ")) {
+            token = token.slice(7);
+        }
+
+        console.log("Verifying token:", token.substring(0, 20) + "...");
+
+        //now verify the token by just checking if that token has data is valid then will move on to next middleware
+        //but if the token is not valid and we can abort the request and send response
+
+        try {
+            const decoded = jwt.verify(token, process.env.JWT_SECRET);
+            console.log("Token decoded successfully:", decoded);
+            res.locals.jwtData = decoded;
+            return next();
+        } catch (err) {
+            console.log("Token verification failed:", err.message);
+            return res.status(401).json({ message: "Token Expired or Invalid" });
+        }
+    };

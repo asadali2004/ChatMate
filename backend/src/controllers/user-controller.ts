@@ -63,7 +63,7 @@ export const userSignup = async (
       .json({ message: "OK", name: user.name, email: user.email, token });
   } catch (error) {
     console.log(error);
-    return res.status(200).json({ message: "ERROR", cause: error.message });
+    return res.status(500).json({ message: "ERROR", cause: error.message });
   }
 };
 
@@ -112,7 +112,7 @@ export const userLogin = async (
       .json({ message: "OK", name: user.name, email: user.email, token });
   } catch (error) {
     console.log(error);
-    return res.status(200).json({ message: "ERROR", cause: error.message });
+    return res.status(500).json({ message: "ERROR", cause: error.message });
   }
 };
 
@@ -135,7 +135,7 @@ export const verifyUser = async (
       .json({ message: "OK", name: user.name, email: user.email });
   } catch (error) {
     console.log(error);
-    return res.status(200).json({ message: "ERROR", cause: error.message });
+    return res.status(500).json({ message: "ERROR", cause: error.message });
   }
 };
 

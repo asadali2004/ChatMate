@@ -1,33 +1,68 @@
 
-import {Link } from "react-router-dom";
+import { Box, Typography, Link as MuiLink } from "@mui/material";
 
 const Footer = () => {
   return (
-    <footer>
-      <div 
-        style={{
-          width: "100",
-          padding: 20,
-          minHeight: "20vh",
-          maxHeight: "30vh",
-          marginTop: 60,
-        }}>
-          <p style={{
-            fontSize: "30px", textAlign: "center" 
-          }}>
-            
-             <span>
-              <Link 
-                style={{ color: "white"}}
-                className="nav-link"
-                 to={'#'}
-                 ></Link>
-              </span> 
-          </p>
-
-      </div>
-    </footer>
+    <Box
+      component="footer"
+      sx={{
+        width: "100%",
+        py: 4,
+        px: 3,
+        mt: 8,
+        background: "rgba(15, 23, 42, 0.8)",
+        backdropFilter: "blur(10px)",
+        borderTop: "1px solid rgba(99, 102, 241, 0.1)",
+        textAlign: "center",
+      }}
+    >
+      <Typography
+        variant="body1"
+        sx={{
+          mb: 2,
+          background: 'linear-gradient(135deg, #6366f1, #ec4899)',
+          backgroundClip: 'text',
+          WebkitBackgroundClip: 'text',
+          WebkitTextFillColor: 'transparent',
+          fontWeight: 600,
+        }}
+      >
+        ChatMate AI - Your Intelligent Companion
+      </Typography>
+      
+      <Typography
+        variant="body2"
+        sx={{
+          color: 'text.secondary',
+          mb: 1,
+        }}
+      >
+        Built with ❤️ by{' '}
+        <MuiLink
+          sx={{
+            color: 'primary.main',
+            textDecoration: 'none',
+            fontWeight: 600,
+            '&:hover': {
+              textDecoration: 'underline',
+            },
+          }}
+        >
+          Asad Ali
+        </MuiLink>
+      </Typography>
+      
+      <Typography
+        variant="body2"
+        sx={{
+          color: 'text.secondary',
+          fontSize: '0.875rem',
+        }}
+      >
+        Powered by Groq • Made with React & TypeScript • © 2025 ChatMate
+      </Typography>
+    </Box>
   );
 };
 
-export default Footer
+export default Footer;

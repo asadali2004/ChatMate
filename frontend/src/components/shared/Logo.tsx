@@ -1,38 +1,49 @@
-import { Typography } from '@mui/material';
-
-import { Link } from 'react-router-dom'
+import { Typography, Box } from '@mui/material';
+import { Link } from 'react-router-dom';
 
 const Logo = () => {
   return (
-    <div 
-        style={{
+    <Box 
+        sx={{
             display: "flex",
             marginRight: "auto",
             alignItems: "center",
-            gap: "15px",
+            gap: 2,
         }}
         >
-            <Link to={"/"}>
-                <img 
-                    src="openai.png"
-                    alt="openai"
-                    width={"30px"}
-                    height={"30px"}
-                    className="image-inverted"
-                />
-               
-            </Link>
-            <Typography sx={{ 
-                        display: {md:"block", sm:"none",xs:"none"}, 
-                        mr: "auto",
-                        fontWeight:"800",
-                        textShadow:"2px 2px 20px #0000",
-                        }}
+            <Link to={"/"} style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <Box
+                    sx={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        width: 40,
+                        height: 40,
+                        borderRadius: '50%',
+                        background: 'linear-gradient(135deg, #6366f1, #ec4899)',
+                        color: 'white',
+                        fontSize: '1.2rem',
+                        fontWeight: 'bold',
+                    }}
                 >
-                    <span style={{fontSize: "20px" }}>ChatMate</span>
-
+                    🤖
+                </Box>
+               
+                <Typography sx={{ 
+                            display: {md:"block", sm:"none",xs:"none"}, 
+                            fontWeight: 700,
+                            fontSize: '1.5rem',
+                            background: 'linear-gradient(135deg, #6366f1, #ec4899)',
+                            backgroundClip: 'text',
+                            WebkitBackgroundClip: 'text',
+                            WebkitTextFillColor: 'transparent',
+                            textShadow: 'none',
+                            }}
+                    >
+                        ChatMate
                 </Typography>
-    </div>
+            </Link>
+    </Box>
   );
 };
 

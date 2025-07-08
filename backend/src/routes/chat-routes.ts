@@ -9,8 +9,8 @@ const chatRoutes = Router();
 {/* /api/chat/new  */}
 chatRoutes.post(
     "/new", 
-    validate(chatCompletionValidator), 
     verifyToken,
+    validate(chatCompletionValidator), 
     generateChatCompletion
 ); 
 

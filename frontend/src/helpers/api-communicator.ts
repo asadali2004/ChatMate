@@ -5,7 +5,7 @@ const getTokenHeader = () => {
 
   const config = {
     headers: {
-      Authorization: token,
+      Authorization: token ? `Bearer ${token}` : "",
     },
   };
 

@@ -1,9 +1,11 @@
+import { config } from "dotenv";
+config();
+
 import app from "./app.js";
 import { connectToDatabase } from "./db/connection.js";
 
-
 //connections and listeners
-//if 5000 port is not available move on to rocess.env in env 
+//if 5000 port is not available move on to process.env in env 
 
 const PORT = process.env.PORT || 5000
 
