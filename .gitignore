@@ -1,5 +1,8 @@
 # Project-specific files
 api.txt
+api.text
+*.key
+*.secret
 
 # Dependencies
 node_modules/

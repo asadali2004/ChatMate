@@ -24,13 +24,13 @@ const Header = () => {
           {auth?.isLoggedIn ? (
             <>
               <NavigationLink
-                bg="linear-gradient(135deg, #10b981, #059669)"
+                bg="linear-gradient(135deg, #6366f1, #4f46e5)"
                 textColor="white"
                 to="/"
                 text="🏠 Home"
               />
               <NavigationLink
-                bg="linear-gradient(135deg, #ef4444, #dc2626)"
+                bg="linear-gradient(135deg, #ec4899, #db2777)"
                 textColor="white"
                 to="/"
                 text="🚪 Logout"
