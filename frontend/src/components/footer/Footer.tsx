@@ -31,26 +31,30 @@ const Footer = () => {
       </Typography>
       
       <Typography
-        variant="body2"
-        sx={{
-          color: 'text.secondary',
-          mb: 1,
-        }}
-      >
-        Built with ❤️ by{' '}
-        <MuiLink
-          sx={{
-            color: 'primary.main',
-            textDecoration: 'none',
-            fontWeight: 600,
-            '&:hover': {
-              textDecoration: 'underline',
-            },
-          }}
-        >
-          Asad Ali
-        </MuiLink>
-      </Typography>
+  variant="body2"
+  sx={{
+    color: 'text.secondary',
+    mb: 1,
+  }}
+>
+  Built with ❤️ by{' '}
+  <MuiLink
+    href="https://www.linkedin.com/in/asadalli/"
+    target="_blank"
+    rel="noopener noreferrer"
+    sx={{
+      color: 'primary.main',
+      textDecoration: 'none',
+      fontWeight: 600,
+      '&:hover': {
+        textDecoration: 'underline',
+      },
+    }}
+  >
+    Asad Ali
+  </MuiLink>
+</Typography>
+
       
       <Typography
         variant="body2"
@@ -59,7 +63,7 @@ const Footer = () => {
           fontSize: '0.875rem',
         }}
       >
-        Powered by Groq • Made with React & TypeScript • © 2025 ChatMate
+        Powered by Groq • Made with React & TypeScript • © 2024 ChatMate
       </Typography>
     </Box>
   );

@@ -294,7 +294,7 @@ const Chat = () => {
         <input
           ref={inputRef} 
           type="text" 
-          placeholder="Type your message here, Asad... ✨"
+          placeholder="Type your message here......✨"
           onKeyPress={handleKeyPress}
           style={{ 
             width: "100%", 
