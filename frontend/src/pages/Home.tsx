@@ -71,7 +71,7 @@ const Home = () => {
               lineHeight: 1.6,
             }}
           >
-            Your intelligent AI companion built by Asad Ali, powered by Groq's lightning-fast infrastructure. 
+            Your intelligent AI companion built by Asad Ali, 
             Get instant answers, creative assistance, and engaging conversations.
           </Typography>
           
