@@ -43,7 +43,7 @@ export const generateChatCompletion = async (
     const chatResponse = await groq.chat.completions.create({
       model: "llama3-8b-8192", // Fast and free Llama 3 model
       messages: chats,
-      max_tokens: 1000,
+      max_tokens: 2000, // Balanced limit - detailed but conservative
       temperature: 0.7,
     });
     
