@@ -107,7 +107,11 @@ function extractCodeFromString(message: string) {
                   color: "text.primary",
                   fontFamily: "Inter",
                   mb: lIndex < lines.length - 1 ? 1 : 0,
-                  textAlign: "left"
+                  textAlign: "left",
+                  overflowWrap: "break-word",
+                  wordWrap: "break-word",
+                  wordBreak: "break-word",
+                  maxWidth: "100%"
                 }}
               >
                 {formatInlineMarkdown(line)}
@@ -173,8 +177,12 @@ const ChatItem = ({
             borderRadius: 2,
             border: "1px solid rgba(99, 102, 241, 0.1)",
             gap: 2,
-            alignItems: "flex-start"
+            alignItems: "flex-start",
+            maxWidth: "100%",
+            overflowX: "hidden",
+            wordWrap: "break-word"
         }}
+        className="chat-container"
     >
         <Avatar
             sx={{ 
@@ -182,14 +190,21 @@ const ChatItem = ({
                 color: "white",
                 width: 36,
                 height: 36,
-                fontSize: "1.2rem"
+                fontSize: "1.2rem",
+                flexShrink: 0
             }} 
         >
             🤖
         </Avatar>
-        <Box sx={{ flex: 1 }}>
+        <Box sx={{ 
+            flex: 1, 
+            minWidth: 0,
+            maxWidth: "100%",
+            overflowWrap: "break-word",
+            wordWrap: "break-word"
+        }}>
         {!messageBlocks && (
-          <Box>
+          <Box className="chat-message">
             {formatText(content)}
           </Box>
         )}
@@ -204,13 +219,19 @@ const ChatItem = ({
                 customStyle={{
                   borderRadius: "8px",
                   margin: "8px 0",
-                  fontSize: "14px"
+                  fontSize: "14px",
+                  maxWidth: "100%",
+                  overflowX: "auto",
+                  wordWrap: "break-word",
+                  whiteSpace: "pre-wrap"
                 }}
+                wrapLines={true}
+                wrapLongLines={true}
               >
                 {block}
               </SyntaxHighlighter>
             ) : (
-              <Box key={index}>
+              <Box key={index} className="chat-message">
                 {formatText(block)}
               </Box>
             )
@@ -228,8 +249,12 @@ const ChatItem = ({
             border: "1px solid rgba(236, 72, 153, 0.1)",
             gap: 2,
             alignItems: "flex-start",
-            flexDirection: "row-reverse"
+            flexDirection: "row-reverse",
+            maxWidth: "100%",
+            overflowX: "hidden",
+            wordWrap: "break-word"
         }}
+        className="chat-container"
     >
         <Avatar
             sx={{ 
@@ -237,14 +262,22 @@ const ChatItem = ({
                 color: "white",
                 width: 36,
                 height: 36,
-                fontWeight: 600
+                fontWeight: 600,
+                flexShrink: 0
             }} 
         >
             { auth?.user?.name[0] }
         </Avatar>
-        <Box sx={{ flex: 1, textAlign: "right" }}>
+        <Box sx={{ 
+            flex: 1, 
+            textAlign: "right",
+            minWidth: 0,
+            maxWidth: "100%",
+            overflowWrap: "break-word",
+            wordWrap: "break-word"
+        }}>
             {!messageBlocks && (
-              <Box>
+              <Box className="chat-message">
                 {formatText(content)}
               </Box>
             )}
@@ -259,13 +292,19 @@ const ChatItem = ({
                     customStyle={{
                       borderRadius: "8px",
                       margin: "8px 0",
-                      fontSize: "14px"
+                      fontSize: "14px",
+                      maxWidth: "100%",
+                      overflowX: "auto",
+                      wordWrap: "break-word",
+                      whiteSpace: "pre-wrap"
                     }}
+                    wrapLines={true}
+                    wrapLongLines={true}
                   >
                     {block}
                   </SyntaxHighlighter>
                 ) : (
-                  <Box key={index}>
+                  <Box key={index} className="chat-message">
                     {formatText(block)}
                   </Box>
                 )

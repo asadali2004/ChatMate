@@ -99,7 +99,7 @@ const Chat = () => {
       if (!auth?.user) {
         return navigate("/login");
       }
-    }, [auth]);
+    }, [auth, navigate]);
 
   return (
     <Box
@@ -240,14 +240,19 @@ const Chat = () => {
             border: '1px solid rgba(99, 102, 241, 0.2)',
             boxShadow: '0 8px 32px rgba(0, 0, 0, 0.3)',
             backdropFilter: 'blur(10px)',
+            maxWidth: "100%",
+            wordWrap: "break-word"
           }}
         >
           <Box
             sx={{
               flex: 1,
               overflowY: "auto",
+              overflowX: "hidden",
               p: 2,
               scrollBehavior: "smooth",
+              maxWidth: "100%",
+              wordWrap: "break-word",
               '&::-webkit-scrollbar': {
                 width: '6px',
               },
