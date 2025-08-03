@@ -66,15 +66,6 @@ export const deleteUserChats = async () => {
   return data;
 };
 
-// export const logoutUser = async () => {
-//   const config = getTokenHeader();
-//   const res = await axios.get("/user/logout", config);
-//   if (res.status !== 200) {
-//     throw new Error("Unable to delete chats");
-//   }
-//   const data = await res.data;
-//   return data;
-// };
 
 export const signupUser = async (
   name: string,
