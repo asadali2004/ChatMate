@@ -1,9 +1,8 @@
 import axios from "axios";
 
 // Configure axios base URL for production
-// TODO: Replace with your actual Render URL after deployment
 axios.defaults.baseURL = import.meta.env.PROD 
-  ? "https://chatmate-backend-[YOUR-RENDER-ID].onrender.com/api/v1" // Update this with your Render backend URL
+  ? "https://chatmate-backend-w7jl.onrender.com/api/v1" // Your Render backend URL
   : "http://localhost:10000/api/v1"; // Updated local port to match Render
 
 const getTokenHeader = () => {

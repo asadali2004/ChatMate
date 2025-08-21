@@ -17,6 +17,7 @@ app.use(cors({
     'https://chatmate-ivory.vercel.app',
     'http://localhost:5173',
     'http://localhost:10000', // Updated local port
+    'https://chatmate-backend-w7jl.onrender.com', // Your Render backend (for health checks)
     process.env.FRONTEND_URL
   ],
   credentials: true
