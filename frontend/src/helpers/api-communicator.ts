@@ -1,9 +1,10 @@
 import axios from "axios";
 
 // Configure axios base URL for production
+// TODO: Replace with your actual Render URL after deployment
 axios.defaults.baseURL = import.meta.env.PROD 
-  ? "https://chatmate-production.up.railway.app/api/v1" // Your Railway backend URL with API path
-  : "http://localhost:5000/api/v1";
+  ? "https://chatmate-backend-[YOUR-RENDER-ID].onrender.com/api/v1" // Update this with your Render backend URL
+  : "http://localhost:10000/api/v1"; // Updated local port to match Render
 
 const getTokenHeader = () => {
   const token = localStorage.getItem("token");

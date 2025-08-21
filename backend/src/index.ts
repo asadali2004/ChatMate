@@ -5,49 +5,14 @@ import app from "./app.js";
 import { connectToDatabase } from "./db/connection.js";
 
 //connections and listeners
-//if 5000 port is not available move on to process.env in env 
-
-const PORT = process.env.PORT || 5000
+// Render uses port 10000 by default, but we'll use PORT from environment
+const PORT = process.env.PORT || 10000;
 
 connectToDatabase().then(() => {
-  app.listen(PORT, ()=> console.log("Server Started & Connected to Database 🤝")
+  app.listen(PORT, '0.0.0.0', () => console.log(`Server Started on port ${PORT} & Connected to Database 🤝`)
   );
 })
 .catch((err) => console.log(err));
-
-
-// import { config } from "dotenv";
-// config();
-
-// import app from "./app.js";
-// import { connectToDatabase } from "./db/connection.js";
-// connectToDatabase();
-// const port = process.env.PORT || 5000;
-
-// app.listen(port, () => {
-//   console.log(`Server is running on port ${port}.`);
-// });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// import express from 'express'
 // import { config } from 'dotenv';
 // config();
 

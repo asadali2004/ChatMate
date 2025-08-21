@@ -1,0 +1,23 @@
+services:
+  - type: web
+    name: chatmate-backend
+    env: node
+    plan: free
+    buildCommand: npm install && npm run build
+    startCommand: npm start
+    healthCheckPath: /
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: MONGODB_URL
+        fromSecret: MONGODB_URL
+      - key: JWT_SECRET
+        fromSecret: JWT_SECRET
+      - key: COOKIE_SECRET
+        fromSecret: COOKIE_SECRET
+      - key: GROQ_API_KEY
+        fromSecret: GROQ_API_KEY
+      - key: FRONTEND_URL
+        fromSecret: FRONTEND_URL
+      - key: PORT
+        value: "10000"

@@ -16,6 +16,7 @@ app.use(cors({
     'https://chat-mate-vert.vercel.app', 
     'https://chatmate-ivory.vercel.app',
     'http://localhost:5173',
+    'http://localhost:10000', // Updated local port
     process.env.FRONTEND_URL
   ],
   credentials: true
