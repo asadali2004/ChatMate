@@ -10,8 +10,8 @@ import { Toaster } from 'react-hot-toast';
 import axios from "axios";
 // Configure axios for production - this will be overridden by api-communicator.ts
 axios.defaults.baseURL = import.meta.env.PROD 
-  ? "https://chatmate-production.up.railway.app/api/v1" 
-  : "http://localhost:5000/api/v1";
+  ? "https://chatmate-backend-w7jl.onrender.com/api/v1" 
+  : "http://localhost:10000/api/v1";
 axios.defaults.withCredentials = true;
 
 
