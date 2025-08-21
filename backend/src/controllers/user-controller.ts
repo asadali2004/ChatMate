@@ -27,42 +27,28 @@ export const userSignup = async (
 ) => {
   try {
     //user signup
+    console.log("Signup attempt:", { body: req.body });
     const { name, email, password } = req.body;
+    
     const existingUser = await User.findOne({ email });
-    if (existingUser) return res.status(401).send("User already registered");
+    if (existingUser) {
+      console.log("User already exists:", email);
+      return res.status(409).json({ message: "User already registered", email });
+    }
+    
     const hashedPassword = await hash(password, 10);
     const user = new User({ name, email, password: hashedPassword });
     await user.save();
-
-    // // create token and store cookie
-    // res.clearCookie(COOKIE_NAME, {
-    //   httpOnly: true,
-    //   secure: true,
-    //   domain: COOKIE_URL,
-    //   sameSite: "none",
-    //   signed: true,
-    //   path: "/",
-    // });
+    
+    console.log("User created successfully:", email);
 
     const token = createToken(user._id.toString(), user.email, "7d");
-    // const expires = new Date();
-
-    // expires.setDate(expires.getDate() + 7);
-    // res.cookie(COOKIE_NAME, token, {
-    //   path: "/",
-    //   domain: COOKIE_URL,
-    //   sameSite: "none",
-    //   expires,
-    //   httpOnly: true,
-    //   secure: true,
-    //   signed: true,
-    // });
 
     return res
       .status(201)
       .json({ message: "OK", name: user.name, email: user.email, token });
   } catch (error) {
-    console.log(error);
+    console.log("Signup error:", error);
     return res.status(500).json({ message: "ERROR", cause: error.message });
   }
 };
