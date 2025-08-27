@@ -25,6 +25,7 @@ ChatMate AI is a sophisticated conversational AI application created by **Asad A
 - **⚡ Lightning-Fast Responses**: Powered by Groq's high-performance infrastructure
 - **🔐 Secure Authentication**: JWT-based user registration and login system
 - **💬 Real-time Chat**: Instant messaging with AI assistant
+- **✨ AI Prompt Enhancer**: Intelligent prompt optimization for better AI interactions
 - **📱 Responsive Design**: Works perfectly on desktop, tablet, and mobile
 - **🎨 Modern UI/UX**: Glassmorphism design with gradient effects
 - **🔒 Privacy-First**: Secure data handling and user privacy protection
@@ -38,6 +39,7 @@ ChatMate AI is a sophisticated conversational AI application created by **Asad A
 - **Hot Toast Notifications** for better user feedback
 - **Code Syntax Highlighting** for technical discussions
 - **Markdown Support** for rich text formatting
+- **Smart Prompt Enhancement**: AI-powered prompt optimization system
 
 ### 🎨 UI/UX Improvements
 - **Modern Gradient Themes**: Beautiful purple-pink gradient color scheme
@@ -72,6 +74,28 @@ ChatMate AI is a sophisticated conversational AI application created by **Asad A
 - **Groq SDK** - Lightning-fast AI inference
 - **Advanced Chat Management** - Context-aware conversations
 - **Real-time Streaming** - Instant response delivery
+- **Smart Prompt Enhancement** - AI-powered prompt optimization for better results
+
+## 🚀 New Feature: AI Prompt Enhancer
+
+### ✨ What is Prompt Enhancement?
+The AI Prompt Enhancer is a powerful new feature that helps users craft better, more effective prompts for AI interactions. Using advanced AI technology, it analyzes your input and suggests improvements to make your prompts clearer, more specific, and more likely to generate high-quality responses.
+
+### 🎯 How It Works
+1. **Write Your Prompt**: Type your initial message or question in the chat input
+2. **Enhance**: Click the enhance button (✨) to improve your prompt
+3. **Review**: The AI will rewrite your prompt for better clarity and effectiveness
+4. **Send**: Use the enhanced prompt to get better AI responses
+
+### 🔧 Benefits
+- **Better AI Responses**: Enhanced prompts lead to more accurate and helpful AI replies
+- **Learning Tool**: See how to structure prompts more effectively
+- **Time Saving**: Get better results on the first try
+- **Clarity**: Transform vague questions into specific, actionable prompts
+
+### 💡 Example
+**Original**: "Help me with coding"
+**Enhanced**: "Please provide a step-by-step guide for debugging JavaScript code, including common error types and best practices for identifying and fixing issues in web development projects"
 
 ## 📋 Prerequisites
 
@@ -186,6 +210,7 @@ ChatMate/
 - `POST /chat/new` - Send new message to AI
 - `GET /chat/all-chats` - Retrieve user's chat history
 - `DELETE /chat/delete` - Clear user's chat history
+- `POST /chat/enhance-prompt` - Enhance user prompts using AI
 
 ## 🎨 Design Features
 
