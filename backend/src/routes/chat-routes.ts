@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { verifyToken } from "../utils/token-manager.js";
-import { validate, chatCompletionValidator } from '../utils/validators.js';
-import { deleteChats, generateChatCompletion, sendChatsToUser } from "../controllers/chat-controllers.js";
+import { validate, chatCompletionValidator, promptEnhanceValidator } from '../utils/validators.js';
+import { deleteChats, generateChatCompletion, sendChatsToUser, enhancePrompt } from "../controllers/chat-controllers.js";
 
 
 //Protected API
@@ -26,10 +26,12 @@ chatRoutes.delete(
     deleteChats
 ); 
 
-
-
-
-
-    
+//POST route for enhancing prompts
+chatRoutes.post(
+    "/enhance-prompt",
+    verifyToken,
+    validate(promptEnhanceValidator),
+    enhancePrompt
+);
 
 export default chatRoutes;

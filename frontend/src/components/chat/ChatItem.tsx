@@ -1,10 +1,11 @@
-//Creating separate component to display all of the chats with modern styling
+
 
 import { Avatar, Box, Typography } from '@mui/material';
 import { useAuth } from '../../context/AuthContext';
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { oneDark } from "react-syntax-highlighter/dist/esm/styles/prism";
 
+// Extracts code blocks from a chat message string
 function extractCodeFromString(message: string) {
     if (message.includes("```")) {
       const blocks = message.split("```");
@@ -16,7 +17,7 @@ function extractCodeFromString(message: string) {
     return null;
   }
 
-  // Function to format text with enhanced colorful styling
+// Formats chat text with enhanced colorful styling
   function formatText(text: string) {
     // Split by double newlines to create paragraphs
     const paragraphs = text.split('\n\n');
@@ -244,7 +245,7 @@ function extractCodeFromString(message: string) {
     });
   }
 
-  // Enhanced function to handle inline markdown formatting with colors
+// Handles inline markdown formatting with colors
   function formatInlineMarkdown(text: string) {
     if (!text) return text;
     
@@ -474,7 +475,7 @@ function extractCodeFromString(message: string) {
     return elements;
   }
 
-  // Function to highlight important keywords with colors
+// Highlights important keywords with colors
   function highlightKeywords(text: string, keyPrefix: number): (string | React.ReactElement)[] | string {
     const keywords = {
       // Technical terms - Blue gradient
@@ -585,7 +586,7 @@ function extractCodeFromString(message: string) {
     return elements.length > 0 ? elements : text;
   }
 
-//accepting the props
+// ChatItem component displays a single chat message (user or assistant)
 
 const ChatItem = ({
     content,

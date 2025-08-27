@@ -1,5 +1,6 @@
 import { Configuration } from "openai";
 
+// Initializes and returns an OpenAI SDK configuration using API key and organization from environment variables
 export const configureOpenAI = () => {
   if (!process.env.OPENAI_API_KEYSET) {
     throw new Error("OpenAI API key not found in environment variables");

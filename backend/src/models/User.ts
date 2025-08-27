@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 import { randomUUID } from "crypto";
 
+// Mongoose schema for individual chat messages
 const chatSchema = new mongoose.Schema({
     id: {
         type: String,
@@ -16,6 +17,7 @@ const chatSchema = new mongoose.Schema({
     },
 });
 
+// Mongoose schema for user accounts with embedded chats
 const userSchema = new mongoose.Schema({
     name:{
         type:String,

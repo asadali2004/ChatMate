@@ -1,7 +1,8 @@
 import { connect, disconnect } from "mongoose";
 
 
- async function connectToDatabase() {
+// Connects to MongoDB using the connection string from environment variables
+async function connectToDatabase() {
     try {
         await connect(process.env.MONGODB_URL);
         
@@ -12,10 +13,7 @@ import { connect, disconnect } from "mongoose";
     }
 }
 
-//disconnecting data ase for error handleing
-//dissconnect is proise if anything happens wrong within or inside of our application then will be disconnectiong of application from database
-//becasue this is the secure approach
-
+// Disconnects from MongoDB
 async function disconnectFromDatabase(){
     try {
         await disconnect();

@@ -6,6 +6,7 @@ import { useAuth } from "../context/AuthContext";
 import { deleteUserChats } from "../helpers/api-communicator";
 import toast from "react-hot-toast";
 
+
 const Home = () => {
   const theme = useTheme();
   const isBelowMd = useMediaQuery(theme.breakpoints.down("md"));
@@ -173,6 +174,7 @@ const Home = () => {
             my: 8,
             px: 3,
             justifyContent: 'center',
+            alignItems: 'stretch',
           }}
         >
           <Box
@@ -183,7 +185,13 @@ const Home = () => {
               p: 4,
               border: '1px solid rgba(99, 102, 241, 0.2)',
               maxWidth: '300px',
+              minHeight: '200px',
               textAlign: 'center',
+              transition: 'transform 0.3s ease',
+              ":hover": {
+                transform: "translateY(-5px)",
+                boxShadow: "0 10px 30px rgba(99, 102, 241, 0.3)",
+              },
             }}
           >
             <Typography variant="h2" sx={{ mb: 2 }}>⚡</Typography>
@@ -201,7 +209,13 @@ const Home = () => {
               p: 4,
               border: '1px solid rgba(236, 72, 153, 0.2)',
               maxWidth: '300px',
+              minHeight: '200px',
               textAlign: 'center',
+              transition: 'transform 0.3s ease',
+              ":hover": {
+                transform: "translateY(-5px)",
+                boxShadow: "0 10px 30px rgba(236, 72, 153, 0.3)",
+              },
             }}
           >
             <Typography variant="h2" sx={{ mb: 2 }}>🧠</Typography>
@@ -219,13 +233,43 @@ const Home = () => {
               p: 4,
               border: '1px solid rgba(16, 185, 129, 0.2)',
               maxWidth: '300px',
+              minHeight: '200px',
               textAlign: 'center',
+              transition: 'transform 0.3s ease',
+              ":hover": {
+                transform: "translateY(-5px)",
+                boxShadow: "0 10px 30px rgba(16, 185, 129, 0.3)",
+              },
             }}
           >
             <Typography variant="h2" sx={{ mb: 2 }}>🔒</Typography>
             <Typography variant="h6" sx={{ fontWeight: 600, mb: 2 }}>Secure & Private</Typography>
             <Typography variant="body2" sx={{ color: 'text.secondary' }}>
               Your conversations are protected with enterprise-grade security
+            </Typography>
+          </Box>
+          
+          <Box
+            sx={{
+              background: 'rgba(30, 41, 59, 0.8)',
+              backdropFilter: 'blur(10px)',
+              borderRadius: 3,
+              p: 4,
+              border: '1px solid rgba(251, 191, 36, 0.2)',
+              maxWidth: '300px',
+              minHeight: '200px',
+              textAlign: 'center',
+              transition: 'transform 0.3s ease',
+              ":hover": {
+                transform: "translateY(-5px)",
+                boxShadow: "0 10px 30px rgba(251, 191, 36, 0.3)",
+              },
+            }}
+          >
+            <Typography variant="h2" sx={{ mb: 2 }}>✨</Typography>
+            <Typography variant="h6" sx={{ fontWeight: 600, mb: 2 }}>AI Enhanced</Typography>
+            <Typography variant="body2" sx={{ color: 'text.secondary' }}>
+              Transform your prompts with AI enhancement for better, more detailed conversations
             </Typography>
           </Box>
         </Box>

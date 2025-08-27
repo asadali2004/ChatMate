@@ -6,6 +6,7 @@ import cookieParser from "cookie-parser";
 import cors from "cors";
 
 config();
+// Initializes the Express application and sets up middlewares and routes
 const app = express();
 
 // ────────────────────────────────────────────

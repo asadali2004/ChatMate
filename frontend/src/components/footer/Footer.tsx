@@ -1,6 +1,7 @@
 
 import { Box, Typography, Link as MuiLink } from "@mui/material";
 
+// Footer component displays the application's footer section
 const Footer = () => {
   return (
     <Box
@@ -69,4 +70,5 @@ const Footer = () => {
   );
 };
 
+// Export Footer component
 export default Footer;

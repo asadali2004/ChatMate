@@ -1,9 +1,9 @@
-import  { useEffect, useLayoutEffect,  useRef, useState } from 'react'
+import  { useEffect, useRef, useState } from 'react'
 import { Avatar, Box, Typography, Button, IconButton } from '@mui/material';
 import { useAuth } from '../context/AuthContext'
 import ChatItem from '../components/chat/ChatItem';
 import { IoMdSend } from 'react-icons/io';
-import { deleteUserChats, sendChatRequest, getUserChats } from '../helpers/api-communicator';
+import { deleteUserChats, sendChatRequest, getUserChats, enhanceUserPrompt } from '../helpers/api-communicator';
 import toast from "react-hot-toast";
 import { useNavigate } from 'react-router-dom';
 
@@ -16,20 +16,18 @@ type Message = {
 const Chat = () => {
   
     const navigate = useNavigate();
-    //ref will allow the dta to fetch the input that hav e typed by the user from the DOM
-    const inputRef = useRef<HTMLInputElement | null>(null); 
+  // Ref for chat input textarea
+    const inputRef = useRef<HTMLTextAreaElement | null>(null); 
 
     const auth = useAuth();
 
-    //Once we recive input data from the user first we want store all of the chats 
-    //first previous chats will be stored 
-    //Then we want to insert latest chats to the array 
+
 
     const [chatMessages, setChatMessages] = useState<Message[]>([]);
 
-     {/**once we click on the input button we need to send the data */}
+  // Handles chat message submission
      const handleSubmit = async () => {
-      //get the latest input messages
+  // Get the latest input message
       const content = inputRef.current?.value as string;
       
       // Check if content is empty or just whitespace
@@ -41,59 +39,86 @@ const Chat = () => {
       inputRef.current.value = "";
     }
     const newMessage: Message = { role: "user", content };
-      //store the input in the state as well
-      {/**here we are getting type error so we can declare types as well at top */}
+  // Store the input in the state
+
       setChatMessages((prev) => [...prev, newMessage]);
 
 
-      //After creating new message inside the array now we want to send API request to Backend with new message 
-      //with the help of that we will be reciving response as well and we can send new response inside the setChatMessages 
-      //I will add in api communicator
+
+
 
       const chatData = await sendChatRequest(content);
       setChatMessages([...chatData.chats]);
 
      };
 
-     // Handle Enter key press
-     const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
-       if (event.key === 'Enter') {
+  // Handles Enter key press for chat input
+     const handleKeyPress = (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
+       if (event.key === 'Enter' && !event.shiftKey) {
          event.preventDefault(); // Prevent form submission
          handleSubmit();
        }
      };
 
-     const handleDeleteChats = async () => {
-      try {
-        toast.loading("Deleting Chats", { id: "deletechats" });
-        await deleteUserChats();
-        setChatMessages([]);
-        toast.success("Deleted Chats Successfully", { id: "deletechats" });
-      } catch (error) {
-        console.log(error);
-        toast.error("Deleting chats failed", { id: "deletechats" });
-      }
-    };
+  // Handles chat deletion
+  const handleDeleteChats = async () => {
+    try {
+      toast.loading("Deleting Chats", { id: "deletechats" });
+      await deleteUserChats();
+      setChatMessages([]);
+      toast.success("Deleted Chats Successfully", { id: "deletechats" });
+    } catch (error) {
+      console.log(error);
+      toast.error("Deleting chats failed", { id: "deletechats" });
+    }
+  };
 
+  // Handles prompt enhancement using AI
+  const handleEnhancePrompt = async () => {
+    const currentValue = inputRef.current?.value || "";
+    if (!currentValue.trim()) {
+      toast.error("Please enter a message to enhance");
+      return;
+    }
 
-     useLayoutEffect(() => {
-      if (auth?.isLoggedIn && auth.user) {
-        toast.loading("Loading Chats", { id: "loadchats" });
-        getUserChats()
-          .then((data) => {
-            setChatMessages([...data.chats]);
-            toast.success("Successfully loaded chats", { id: "loadchats" });
-          })
-          .catch((err) => {
-            console.log(err);
-            toast.error("Loading Failed", { id: "loadchats" });
-          });
+    try {
+      toast.loading("Enhancing your prompt...", { id: "enhance" });
+      const enhancedPrompt = await enhanceUserPrompt(currentValue);
+      if (inputRef.current) {
+        inputRef.current.value = enhancedPrompt;
       }
-    }, [auth]);
+      toast.success("Prompt enhanced successfully!", { id: "enhance" });
+    } catch (error) {
+      console.log(error);
+      toast.error("Failed to enhance prompt", { id: "enhance" });
+    }
+  };
+
+  // Loads user chats on login
+  useEffect(() => {
+    if (auth?.isLoggedIn && auth.user) {
+      toast.loading("Loading Chats", { id: "loadchats" });
+      getUserChats()
+        .then((data) => {
+          setChatMessages([...data.chats]);
+          toast.success("Successfully loaded chats", { id: "loadchats" });
+          
+          // Check if there's a prompt from home page
+          const startPrompt = localStorage.getItem("startPrompt");
+          if (startPrompt && inputRef.current) {
+            inputRef.current.value = startPrompt;
+            localStorage.removeItem("startPrompt");
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+          toast.error("Loading Failed", { id: "loadchats" });
+        });
+    }
+  }, [auth]);
     
 
-    //to check if user have logged in or not if not he will be redirected to signup page
-    //using useEffect
+  // Redirects to login if user is not authenticated
 
     useEffect(() => {
       if (!auth?.user) {
@@ -101,6 +126,7 @@ const Chat = () => {
       }
     }, [auth, navigate]);
 
+  // Main Chat page render
   return (
     <Box
     sx={{
@@ -226,7 +252,7 @@ const Chat = () => {
           Chat with ChatMate AI ✨
         </Typography>
 
-        {/* render actual chats over here */}
+  {/* Render actual chat messages */}
         <Box 
           sx={{
             width: "100%",
@@ -281,10 +307,11 @@ const Chat = () => {
           border: '1px solid rgba(99, 102, 241, 0.2)',
           boxShadow: '0 8px 32px rgba(0, 0, 0, 0.3)',
           display: "flex",
-          alignItems: "center",
+          alignItems: "flex-end",
           margin: "16px auto 0",
-          overflow: "hidden",
+          overflow: "visible",
           position: "relative",
+          minHeight: "56px",
           "&::before": {
             content: '""',
             position: "absolute",
@@ -295,11 +322,10 @@ const Chat = () => {
             background: "linear-gradient(90deg, #6366f1, #ec4899)",
           }
           }}>
-          {/** add Input tag to type  */}
-        <input
+          {/* Add textarea for dynamic input */}
+        <textarea
           ref={inputRef} 
-          type="text" 
-          placeholder="Type your message here......✨"
+          placeholder="Type your question here......✨"
           onKeyPress={handleKeyPress}
           style={{ 
             width: "100%", 
@@ -310,9 +336,40 @@ const Chat = () => {
             color: "#f8fafc",
             fontSize: "16px",
             fontFamily: "Inter, sans-serif",
+            resize: "none",
+            minHeight: "20px",
+            maxHeight: "200px",
+            overflow: "auto",
+            lineHeight: "1.5",
+            verticalAlign: "top",
             }}
+          onInput={(e) => {
+            const target = e.target as HTMLTextAreaElement;
+            target.style.height = "20px";
+            target.style.height = Math.min(target.scrollHeight, 200) + "px";
+          }}
         />
-        {/**Enhanced send button with better styling */}
+  {/* Enhanced lightning button for prompt enhancement */}
+        <IconButton 
+          onClick={handleEnhancePrompt}
+          sx={{
+            m: 1,
+            color: "white",
+            background: "linear-gradient(135deg, #fbbf24, #f59e0b)",
+            width: 48,
+            height: 48,
+            ":hover": {
+              background: "linear-gradient(135deg, #f59e0b, #d97706)",
+            },
+            ":active": {},
+            transition: "all 0.2s ease",
+            borderRadius: "50%",
+            boxShadow: "0 4px 15px rgba(251, 191, 36, 0.4)",
+          }}
+        >
+          ⚡
+        </IconButton>
+  {/* Enhanced send button with better styling */}
         <IconButton 
           onClick={handleSubmit}
           sx={{
@@ -323,25 +380,20 @@ const Chat = () => {
             height: 52,
             ":hover": {
               background: "linear-gradient(135deg, #4f46e5, #db2777)",
-              transform: "scale(1.1)",
             },
-            ":active": {
-              transform: "scale(0.95)",
-            },
+            ":active": {},
             transition: "all 0.2s ease",
             boxShadow: "0 4px 20px rgba(99, 102, 241, 0.3)",
           }}
         >
           <IoMdSend />
-        </IconButton>
-
-        </Box>
+        </IconButton>        </Box>
         
       </Box>
     </Box>
   )
 }
 
+// Export Chat page component
 export default Chat
 
-//this should contain all of the pages routes of our application

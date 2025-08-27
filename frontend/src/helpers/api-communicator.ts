@@ -1,10 +1,11 @@
 import axios from "axios";
 
-// Configure axios base URL for production
+// Set axios base URL based on environment
 axios.defaults.baseURL = import.meta.env.PROD 
   ? "https://chatmate-backend-w7jl.onrender.com/api/v1" // Your Render backend URL
   : "http://localhost:10000/api/v1"; // Updated local port to match Render
 
+// Returns authorization header with JWT token
 const getTokenHeader = () => {
   const token = localStorage.getItem("token");
 
@@ -17,6 +18,7 @@ const getTokenHeader = () => {
   return config;
 };
 
+// Sends login request to backend
 export const loginUser = async (email: string, password: string) => {
   const res = await axios.post("/user/login", { email, password });
   if (res.status !== 200) {
@@ -26,6 +28,7 @@ export const loginUser = async (email: string, password: string) => {
   return data;
 };
 
+// Checks user authentication status
 export const checkAuthStatus = async () => {
   const config = getTokenHeader();
   const res = await axios.get("/user/auth-status", config);
@@ -36,6 +39,7 @@ export const checkAuthStatus = async () => {
   return data;
 };
 
+// Sends a new chat message to backend
 export const sendChatRequest = async (message: string) => {
   const config = getTokenHeader();
   const res = await axios.post("/chat/new", { message }, config);
@@ -46,6 +50,7 @@ export const sendChatRequest = async (message: string) => {
   return data;
 };
 
+// Retrieves all user chat messages
 export const getUserChats = async () => {
   const config = getTokenHeader();
   const res = await axios.get("/chat/all-chats", config);
@@ -56,6 +61,7 @@ export const getUserChats = async () => {
   return data;
 };
 
+// Deletes all user chat messages
 export const deleteUserChats = async () => {
   const config = getTokenHeader();
   const res = await axios.delete("/chat/delete", config);
@@ -66,7 +72,18 @@ export const deleteUserChats = async () => {
   return data;
 };
 
+// Enhances user prompt using backend AI
+export const enhanceUserPrompt = async (prompt: string) => {
+  const config = getTokenHeader();
+  const res = await axios.post("/chat/enhance-prompt", { prompt }, config);
+  if (res.status !== 200) {
+    throw new Error("Unable to enhance prompt");
+  }
+  const data = await res.data;
+  return data.enhancedPrompt;
+};
 
+// Sends signup request to backend
 export const signupUser = async (
   name: string,
   email: string,

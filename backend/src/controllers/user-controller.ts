@@ -5,13 +5,13 @@ import { createToken } from "../utils/token-manager.js";
 import { COOKIE_NAME } from "../utils/constants.js";
 import { COOKIE_URL } from "../utils/constants.js";
 
+// Retrieves all users from the database
 export const getAllUsers = async (
   req: Request,
   res: Response,
   next: NextFunction
 ) => {
   try {
-    //get all users
     const users = await User.find();
     return res.status(200).json({ message: "OK", users });
   } catch (error) {
@@ -20,13 +20,13 @@ export const getAllUsers = async (
   }
 };
 
+// Creates a new user account with hashed password and returns JWT token
 export const userSignup = async (
   req: Request,
   res: Response,
   next: NextFunction
 ) => {
   try {
-    //user signup
     console.log("Signup attempt:", { body: req.body });
     const { name, email, password } = req.body;
     
@@ -53,13 +53,13 @@ export const userSignup = async (
   }
 };
 
+// Authenticates user credentials and returns JWT token on successful login
 export const userLogin = async (
   req: Request,
   res: Response,
   next: NextFunction
 ) => {
   try {
-    //user login
     const { email, password } = req.body;
     const user = await User.findOne({ email });
     if (!user) {
@@ -70,28 +70,7 @@ export const userLogin = async (
       return res.status(403).send("Incorrect Password");
     }
 
-    // create token and store cookie
-
-    // res.clearCookie(COOKIE_NAME, {
-    //   httpOnly: true,
-    //   secure: true,
-    //   domain: COOKIE_URL,
-    //   signed: true,
-    //   path: "/",
-    // });
-
     const token = createToken(user._id.toString(), user.email, "7d");
-    // const expires = new Date();
-    // expires.setDate(expires.getDate() + 7);
-    // res.cookie(COOKIE_NAME, token, {
-    //   path: "/",
-    //   domain: COOKIE_URL,
-    //   sameSite: "none",
-    //   expires,
-    //   httpOnly: true,
-    //   secure: true,
-    //   signed: true,
-    // });
 
     return res
       .status(200)
@@ -102,13 +81,13 @@ export const userLogin = async (
   }
 };
 
+// Validates JWT token and returns user information if token is valid
 export const verifyUser = async (
   req: Request,
   res: Response,
   next: NextFunction
 ) => {
   try {
-    //user token check
     const user = await User.findById(res.locals.jwtData.id);
     if (!user) {
       return res.status(401).send("User not registered OR Token malfunctioned");
@@ -124,36 +103,3 @@ export const verifyUser = async (
     return res.status(500).json({ message: "ERROR", cause: error.message });
   }
 };
-
-// export const userLogout = async (
-//   req: Request,
-//   res: Response,
-//   next: NextFunction
-// ) => {
-//   try {
-//     //user token check
-//     const user = await User.findById(res.locals.jwtData.id);
-//     if (!user) {
-//       return res.status(401).send("User not registered OR Token malfunctioned");
-//     }
-//     if (user._id.toString() !== res.locals.jwtData.id) {
-//       return res.status(401).send("Permissions didn't match");
-//     }
-
-//     // res.clearCookie(COOKIE_NAME, {
-//     //   httpOnly: true,
-//     //   secure: true,
-//     //   domain: COOKIE_URL,
-//     //   sameSite: "none",
-//     //   signed: true,
-//     //   path: "/",
-//     // });
-
-//     return res
-//       .status(200)
-//       .json({ message: "OK", name: user.name, email: user.email });
-//   } catch (error) {
-//     console.log(error);
-//     return res.status(200).json({ message: "ERROR", cause: error.message });
-//   }
-// };
