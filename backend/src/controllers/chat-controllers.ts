@@ -25,7 +25,7 @@ export const generateChatCompletion = async (
     const groq = configureGroq();
     console.log("Sending request to Groq with", chats.length, "messages");
     const chatResponse = await groq.chat.completions.create({
-      model: "llama3-8b-8192",
+      model: "llama-3.1-8b-instant",
       messages: chats,
       max_tokens: 2000,
       temperature: 0.7,
@@ -120,7 +120,7 @@ export const enhancePrompt = async (
       const groq = configureGroq();
       console.log("Enhancing prompt:", prompt);
       const enhancementResponse = await groq.chat.completions.create({
-        model: "llama3-8b-8192",
+        model: "llama-3.1-8b-instant",
         messages: [
           {
             role: "system",
